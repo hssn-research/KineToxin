@@ -1,0 +1,97 @@
+## spyware malware development = educatinal research
+## what we need to access = access and track GPS locations, access messages and such, and camera + speaker access[access camera and speaker = recording]
+## LOLBAS = powershell.exe
+## platform = windows 
+## the spyware must separate the main functions from the calling functions = access more data from the separated servers
+## outline the malware-development full structure = for ease of malware development 
+## add anti-analysis and anti-debugging mechanisms in our malware 
+## evasion = make sure no anti-virus find or fingerprints us 
+
+
+
+
+
+
+## Windows anti-viruses locations = >>Here is a **list of all relevant Windows malware security components and their locations** as of **July 26, 2025**:
+### 🧾 **Microsoft Defender Antivirus**
+
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\MsMpEng.exe`
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\NisSrv.exe`
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\MpCmdRun.exe`
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\MpDefenderCoreService.exe`
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\MpDlpService.exe`
+* `C:\ProgramData\Microsoft\Windows Defender\Platform\<version>\ConfigSecurityPolicy.exe`
+
+---
+
+### 📁 **Quarantine and Protection Data**
+
+* `C:\ProgramData\Microsoft\Windows Defender\Quarantine\Entries\`
+* `C:\ProgramData\Microsoft\Windows Defender\Quarantine\ResourceData\`
+
+---
+
+### 🪵 **Event Logs**
+
+* `Event Viewer → Applications and Services Logs → Microsoft → Windows → Windows Defender → Operational`
+* Alternate log paths (e.g., WMI or PowerShell parsing):
+
+  * `Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational"`
+
+---
+
+### 🔐 **Controlled Folder Access (Ransomware Protection)**
+
+* Protected folders (defaults):
+
+  * `%USERPROFILE%\Documents`
+  * `%USERPROFILE%\Pictures`
+  * `%USERPROFILE%\Videos`
+  * `%USERPROFILE%\Music`
+  * `%USERPROFILE%\Desktop`
+
+* Policy location:
+
+  * `Group Policy → Computer Configuration → Administrative Templates → Windows Components → Microsoft Defender Antivirus → Microsoft Defender Exploit Guard → Controlled Folder Access`
+
+---
+
+### 🛠️ **Windows Resource Protection (WRP)**
+
+* Protected files backup location:
+
+  * `C:\Windows\WinSxS\`
+* Protected system files (DLL, EXE, INF, SYS):
+
+  * ACL controlled by `TrustedInstaller`
+
+---
+
+### 🔒 **BitLocker and TPM Configurations**
+
+* BitLocker system info:
+
+  * `Control Panel → BitLocker Drive Encryption`
+* TPM diagnostics:
+
+  * `tpm.msc` (GUI)
+  * `Get-TPM` (PowerShell)
+* Related logs:
+
+  * `Event Viewer → Applications and Services Logs → Microsoft → Windows → BitLocker-API → Management`
+
+---
+
+### 🌐 **Firewall and Network Protection**
+
+* Windows Firewall configuration:
+
+  * `wf.msc`
+* Log files:
+
+  * `C:\Windows\System32\LogFiles\Firewall\pfirewall.log` (if logging is enabled)
+
+---
+
+
+

