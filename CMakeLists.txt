@@ -42,21 +42,31 @@ include_directories(
 set(UTILS_SOURCES
     src/utils/crypto.cpp
     src/utils/crypto.h
+    src/utils/logger.cpp
+    src/utils/logger.h
+    src/utils/config.cpp
+    src/utils/config.h
+    src/utils/error.cpp
+    src/utils/error.h
 )
 
 add_library(KineToxinUtils STATIC ${UTILS_SOURCES})
 
 # Core Surveillance Module
 set(SURVEILLANCE_SOURCES
+    src/core/surveillance/location_tracker.cpp
     src/core/surveillance/location_tracker.h
-    # Add .cpp files as they are created
 )
+
+add_library(KineToxinSurveillance STATIC ${SURVEILLANCE_SOURCES})
 
 # Evasion Module
 set(EVASION_SOURCES
+    src/evasion/vm_detection.cpp
     src/evasion/vm_detection.h
-    # Add .cpp files as they are created
 )
+
+add_library(KineToxinEvasion STATIC ${EVASION_SOURCES})
 
 # Link libraries for Windows
 if(WIN32)
@@ -68,28 +78,56 @@ if(WIN32)
         ole32
         oleaut32
         uuid
+    )
+    
+    target_link_libraries(KineToxinSurveillance
         sensorsapi
         locationapi
+        ole32
+        oleaut32
+        uuid
+    )
+    
+    target_link_libraries(KineToxinEvasion
+        advapi32
+        psapi
+        user32
+        kernel32
     )
 endif()
 
-# Main executable (to be created later)
-# add_executable(KineToxin src/main.cpp)
-# target_link_libraries(KineToxin KineToxinUtils)
+# Main executable
+add_executable(KineToxin src/main.cpp)
+target_link_libraries(KineToxin 
+    KineToxinUtils 
+    KineToxinSurveillance 
+    KineToxinEvasion
+)
 
-# Testing (using Google Test - to be configured later)
+# Testing (using custom test framework)
 option(BUILD_TESTS "Build test programs" ON)
 
 if(BUILD_TESTS)
     enable_testing()
-    # find_package(GTest REQUIRED)
     
-    # Add test subdirectory when tests are created
-    # add_subdirectory(tests)
+    # Test executable
+    add_executable(KineToxinTests tests/test_main.cpp)
+    target_link_libraries(KineToxinTests 
+        KineToxinUtils 
+        KineToxinSurveillance 
+        KineToxinEvasion
+    )
+    
+    # Add test
+    add_test(NAME UnitTests COMMAND KineToxinTests)
+    
+    # Copy test files to build directory
+    configure_file(${CMAKE_SOURCE_DIR}/tests/README.md 
+                   ${CMAKE_BINARY_DIR}/tests/README.md COPYONLY)
 endif()
 
 # Installation rules
-install(TARGETS KineToxinUtils
+install(TARGETS KineToxin KineToxinUtils KineToxinSurveillance KineToxinEvasion
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
